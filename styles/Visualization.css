@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.visualization-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #26a69a, #ff6f61);
+    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+}
+
+.visualization-header {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.visualization-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.visualization-header p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.visualization-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.upload-area {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    border: 2px dashed transparent;
+    transition: border 0.3s ease, transform 0.3s ease, background 0.3s ease;
+    animation: slideIn 0.5s ease;
+}
+
+.upload-area.active {
+    border: 2px dashed #26a69a;
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.02);
+}
+
+.upload-area:hover {
+    transform: scale(1.02);
+}
+
+.browse-button {
+    background: #26a69a;
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.browse-button:hover {
+    background: #1e867a;
+    transform: scale(1.05);
+}
+
+.file-details {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+}
+
+.file-icon {
+    font-size: 1.5rem;
+}
+
+.file-details p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.predict-button {
+    padding: 12px 25px;
+    background: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.predict-button:hover {
+    background: #e64a19;
+    transform: scale(1.1);
+}
+
+.predict-button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.status-message {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-top: 15px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .visualization-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .visualization-header p {
+        font-size: 0.9rem;
+    }
+
+    .upload-area {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .browse-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .predict-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .file-details p {
+        font-size: 0.9rem;
+    }
+}

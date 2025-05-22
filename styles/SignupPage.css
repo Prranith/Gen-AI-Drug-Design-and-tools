@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@400;700&family=Space+Mono:wght@400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  color: #0a1a2f;
+  overflow: hidden;
+}
+
+.signup-wrapper {
+  height: 100vh;
+  background: linear-gradient(130deg, #0a1a2f 0%, #1e40af 100%);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(130deg, rgba(10, 26, 47, 0.5), rgba(30, 64, 175, 0.3));
+  z-index: 1;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="rgba(255,255,255,0.05)" fill-opacity="1" d="M0,192L60,186.7C120,181,240,171,360,176C480,181,600,203,720,192C840,181,960,139,1080,122.7C1200,107,1320,117,1380,122.7L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"%3E%3C/path%3E%3C/svg%3E');
+  background-size: cover;
+  background-position: bottom;
+  animation: wave 20s linear infinite;
+}
+
+.signup-card {
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 24px;
+  padding: 2rem;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 2;
+  animation: cardRise 1.5s ease-out;
+  overflow: hidden;
+}
+
+.signup-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(165, 180, 252, 0.2) 0%, transparent 75%);
+  z-index: -1;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+  color: #a5b4fc;
+  animation: neuralGlow 2.8s ease-in-out infinite;
+}
+
+.signup-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0a1a2f;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.signup-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.signup-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #0a1a2f;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.signup-input:focus {
+  border-color: #a5b4fc;
+  box-shadow: 0 0 10px rgba(165, 180, 252, 0.3);
+  outline: none;
+  background: #ffffff;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.95rem;
+  color: #f8fafc;
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.signup-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transition: left 0.5s ease;
+  z-index: 1;
+}
+
+.signup-button:hover::before,
+.signup-button:focus::before {
+  left: 150%;
+}
+
+.signup-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(165, 180, 252, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+  z-index: 1;
+}
+
+.signup-button:hover::after,
+.signup-button:focus::after {
+  width: 300px;
+  height: 300px;
+}
+
+.signup-button:hover,
+.signup-button:focus {
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(30, 64, 175, 0.5);
+}
+
+.signup-message {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #dc2626;
+  text-align: center;
+  margin-top: 1rem;
+  animation: fadeInUp 1.2s ease-out;
+}
+
+.signup-link-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #1e40af;
+  text-align: center;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.signup-link-text:hover,
+.signup-link-text:focus {
+  color: #2563eb;
+}
+
+.neural-network {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  transform: perspective(400px);
+  opacity: 0.2;
+}
+
+.node {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #a5b4fc;
+  border-radius: 50%;
+  animation: nodeGlow 2s ease-in-out infinite;
+  transform: translateZ(10px);
+}
+
+.node-1 {
+  top: 20%;
+  left: 30%;
+}
+
+.node-2 {
+  top: 50%;
+  left: 70%;
+  animation-delay: 0.3s;
+}
+
+.node-3 {
+  top: 80%;
+  left: 40%;
+  animation-delay: 0.6s;
+}
+
+.connection {
+  position: absolute;
+  background: linear-gradient(90deg, rgba(165, 180, 252, 0.4), rgba(165, 180, 252, 0.7));
+  height: 1.5px;
+  animation: connectionPulse 2.5s ease-in-out infinite;
+}
+
+.conn-1 {
+  top: 35%;
+  left: 35%;
+  width: 50px;
+  transform: rotate(45deg);
+}
+
+.conn-2 {
+  top: 65%;
+  left: 45%;
+  width: 40px;
+  transform: rotate(-30deg);
+  animation-delay: 0.4s;
+}
+
+@keyframes wave {
+  0% {
+    background-position: bottom 0px;
+  }
+  100% {
+    background-position: bottom 1440px;
+  }
+}
+
+@keyframes neuralGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(165, 180, 252, 0.5);
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+    box-shadow: 0 0 20px rgba(165, 180, 252, 0.8);
+  }
+}
+
+@keyframes nodeGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(165, 180, 252, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(165, 180, 252, 0.9);
+  }
+}
+
+@keyframes connectionPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes cardRise {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-card {
+    padding: 1.5rem;
+    width: 95%;
+  }
+
+  .signup-title {
+    font-size: 1.6rem;
+  }
+
+  .signup-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .signup-input {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .signup-button {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .signup-message {
+    font-size: 0.8rem;
+  }
+
+  .signup-link-text {
+    font-size: 0.85rem;
+  }
+
+  .neural-network {
+    width: 100px;
+    height: 100px;
+  }
+
+  .node {
+    width: 6px;
+    height: 6px;
+  }
+
+  .connection {
+    height: 1px;
+  }
+
+  .conn-1 {
+    width: 40px;
+  }
+
+  .conn-2 {
+    width: 30px;
+  }
+}

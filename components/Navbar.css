@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.nav-container {
+  position: relative;
+  background: #c8e6c9;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.brand-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #388e3c;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.brand-title:hover {
+  color: #2e7d32;
+}
+
+.menu-toggle {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #388e3c;
+  cursor: pointer;
+  display: none;
+  padding: 5px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: #fff9c4;
+  padding: 20px 0;
+  transition: left 0.3s ease;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.nav-item,
+.nav-subitem {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  border-radius: 8px;
+}
+
+.nav-item:hover,
+.nav-subitem:hover {
+  background: #fff59d;
+  color: #388e3c;
+}
+
+.nav-item.active,
+.nav-subitem.active {
+  background: #c8e6c9;
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.accordion-item {
+  margin: 5px 0;
+}
+
+.accordion-title {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-title:hover {
+  background: #fff59d;
+  color: #388e3c;
+}
+
+.accordion-content {
+  padding: 0 20px;
+}
+
+.logout {
+  position: absolute;
+  bottom: 20px;
+  width: calc(100% - 40px);
+  background: #ef9a9a;
+  color: #d32f2f;
+}
+
+.logout:hover {
+  background: #e57373;
+  color: #b71c1c;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    left: -250px;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .nav-container {
+    justify-content: space-between;
+  }
+
+  .brand-title {
+    font-size: 1.2rem;
+  }
+}
