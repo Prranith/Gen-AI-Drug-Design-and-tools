@@ -1,115 +1,7 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import '../styles/Chembert.css'; // Import the CSS file
-
-// const Chembert = () => {
-//   const [selectedDisease, setSelectedDisease] = useState('');
-//   const [showInfo, setShowInfo] = useState(false);
-//   const [smiles, setSmiles] = useState('');
-//   const [prediction, setPrediction] = useState([]);
-//   const [error, setError] = useState(null);
-
-//   const diseaseInfo = {
-//     alzheimers: {
-//       name: 'Alzheimer’s Disease',
-//       description:
-//         'Alzheimer’s is a progressive neurological disorder that causes brain cells to waste away. One therapeutic strategy involves targeting JAK2, a tyrosine kinase involved in neuroinflammation and cell survival. Predicting suitable inhibitors using SMILES with masked tokens helps explore novel compounds for this target.',
-//     },
-//   };
-
-//   const handleDiseaseSelect = (e) => {
-//     setSelectedDisease(e.target.value);
-//     setShowInfo(true);
-//     setPrediction([]);
-//     setSmiles('');
-//     setError(null);
-//   };
-
-//   const handlePredict = async () => {
-//     if (!smiles.includes('<mask>')) {
-//       setError('SMILES must contain <mask>');
-//       return;
-//     }
-
-//     setError(null);
-//     try {
-//       const res = await axios.post('http://localhost:5000/api/mask', {state:  smiles });
-//       setPrediction(res.data.top_results.split('\n'));
-//     } catch (err) {
-//       setError('Prediction failed');
-//     }
-//   };
-
-//   return (
-//     <div className="container">
-//       {/* Animation keyframes are now in PredictPage.css */}
-
-//       <h2 className="heading">Masked SMILES Predictor</h2>
-
-//       <div className="centerBox">
-//         <div className="contentBox">
-//           <label className="label">Select Disease</label>
-//           <select className="dropdown" onChange={handleDiseaseSelect} value={selectedDisease}>
-//             <option value="">-- Select --</option>
-//             <option value="alzheimers">Alzheimer’s</option>
-//           </select>
-
-//           {showInfo && selectedDisease && (
-//             <div className="infoBox">
-//               <h3 className="infoTitle">{diseaseInfo[selectedDisease].name}</h3>
-//               <p className="infoText">{diseaseInfo[selectedDisease].description}</p>
-//             </div>
-//           )}
-
-//           {selectedDisease && (
-//             <>
-//               <label className="label">Enter SMILES (with &lt;mask&gt;)</label>
-//               <input
-//                 type="text"
-//                 value={smiles}
-//                 onChange={(e) => setSmiles(e.target.value)}
-//                 placeholder="Example: CC<mask>OC"
-//                 className="input"
-//               />
-//               <button onClick={handlePredict} className="button">Predict</button>
-//               {error && <p className="error">{error}</p>}
-
-//               {prediction.length > 0 && (
-//                 <div className="resultBox">
-//                   <h4 className="resultTitle">Predictions:</h4>
-//                   <ul style={{ paddingLeft: '20px' }}>
-//                     {prediction.map((p, idx) => (
-//                       <li
-//                         key={idx}
-//                         className="resultItem"
-//                         onMouseEnter={(e) => {
-//                           e.currentTarget.style.backgroundColor = '#37474f';
-//                           e.currentTarget.style.transform = 'scale(1.02)';
-//                         }}
-//                         onMouseLeave={(e) => {
-//                           e.currentTarget.style.backgroundColor = '#263238';
-//                           e.currentTarget.style.transform = 'scale(1)';
-//                         }}
-//                       >
-//                         {p}
-//                       </li>
-//                     ))}
-//                   </ul>
-//                 </div>
-//               )}
-//             </>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Chembert;
-// src/pages/ChemBERT.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import "../styles/Chembert.css"; // Import the CSS file
+import useParticleEffect from '../hooks/useParticleEffect';
+import '../styles/Chembert.css';
 
 const Chembert = () => {
   const [smiles, setSmiles] = useState('');
@@ -122,6 +14,8 @@ const Chembert = () => {
     description:
       'Alzheimer’s is a progressive neurological disorder that causes brain cells to waste away. One therapeutic strategy involves targeting JAK2, a tyrosine kinase involved in neuroinflammation and cell survival. Predicting suitable inhibitors using SMILES with masked tokens helps explore novel compounds for this target.',
   };
+
+  useParticleEffect('chembert-wrapper');
 
   const handleSmilesChange = (e) => {
     const value = e.target.value.trim();
@@ -172,21 +66,35 @@ const Chembert = () => {
 
   return (
     <div className="chembert-wrapper">
-      <div className="disease-panel">
+      <div className="disease-panel panel-card">
+        <div className="feature-emoji" style={{ backgroundColor: '#7b1fa2' }}>
+          🧠
+        </div>
         <h2 className="disease-title">{diseaseInfo.name}</h2>
         <p className="disease-description">{diseaseInfo.description}</p>
+        <div className="neural-network">
+          <div className="node node-1"></div>
+          <div className="node node-2"></div>
+          <div className="node node-3"></div>
+          <div className="connection conn-1"></div>
+          <div className="connection conn-2"></div>
+          <div className="scan-pulse"></div>
+        </div>
       </div>
 
       <div className="predictor-panel">
         <h1 className="predictor-title">Masked SMILES Predictor</h1>
 
-        <div className="input-section">
+        <div className="panel-card input-section">
+          <div className="feature-emoji" style={{ backgroundColor: '#f06292' }}>
+            🔬
+          </div>
           <label className="input-label">Enter SMILES String (with &lt;mask&gt;)</label>
           <input
             type="text"
             value={smiles}
             onChange={handleSmilesChange}
-            placeholder="e.g., CC<mask>OC"
+            placeholder="e.g., CC&lt;mask&gt;OC"
             className="smiles-input"
             disabled={isLoading}
           />
@@ -198,22 +106,48 @@ const Chembert = () => {
           >
             {isLoading ? 'Predicting...' : 'Predict'}
           </button>
+          <div className="neural-network">
+            <div className="node node-1"></div>
+            <div className="node node-2"></div>
+            <div className="node node-3"></div>
+            <div className="connection conn-1"></div>
+            <div className="connection conn-2"></div>
+            <div className="scan-pulse"></div>
+          </div>
         </div>
 
         {predictions.length > 0 ? (
           <div className="prediction-section">
-            <h3 className="prediction-title">Predicted Compounds</h3>
-            <div className="prediction-list">
-              {predictions.map((p, idx) => (
-                <div key={idx} className="prediction-item">
-                  {p}
+            {predictions.map((p, idx) => (
+              <div key={idx} className="panel-card prediction-item">
+                <div className="feature-emoji" style={{ backgroundColor: '#ffab91' }}>
+                  🧪
                 </div>
-              ))}
-            </div>
+                <h3 className="prediction-title">Prediction {idx + 1}</h3>
+                <div className="prediction-content">
+                  <div className="result-image-container">
+                    <div className="image-fallback">Image Placeholder</div>
+                  </div>
+                  <div className="prediction-details">
+                    <p><strong>SMILES:</strong> {p}</p>
+                  </div>
+                </div>
+                <div className="neural-network">
+                  <div className="node node-1"></div>
+                  <div className="node node-2"></div>
+                  <div className="node node-3"></div>
+                  <div className="connection conn-1"></div>
+                  <div className="connection conn-2"></div>
+                  <div className="scan-pulse"></div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           predictions.length === 0 && smiles && !isLoading && !error && (
-            <p className="no-predictions">No predictions available. Try a different SMILES string.</p>
+            <div className="panel-card">
+              <p className="no-predictions">No predictions available. Try a different SMILES string.</p>
+            </div>
           )
         )}
       </div>

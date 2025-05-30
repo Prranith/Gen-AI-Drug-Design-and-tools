@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import useParticleEffect from '../hooks/useParticleEffect';
 import '../styles/Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = ({ isAuthenticated, onLogout }) => {
   const navigate = useNavigate();
   const [headerVisible, setHeaderVisible] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Added loading state for cards
+
+  useParticleEffect('hub-wrapper');
 
   const sections = [
     {
@@ -17,10 +22,17 @@ const Dashboard = () => {
       color: '#26a69a',
     },
     {
-      title: 'Tumor Detection on CT Scan',
-      description: 'Analyze medical images and patient data with cutting-edge AI for rapid and accurate diagnoses.',
-      path: '/diagnosis',
-      emoji: '❤️',
+      title: 'LogP Optimization',
+      description: 'Optimize the partition coefficient (LogP) of drug candidates using AI-driven algorithms.',
+      path: '/reinforcement2',
+      emoji: '🧬',
+      color: '#9575cd',
+    },
+    {
+      title: 'Tumor Analysis',
+      description: 'Detect tumors in brain or lung using 2D or 3D AI-powered analysis and visualization.',
+      path: '/tumor-analysis',
+      emoji: '🩻',
       color: '#ff8a65',
     },
     {
@@ -56,14 +68,7 @@ const Dashboard = () => {
       description: 'Visualize original medical images like MRI, CT scans directly in your browser using Papaya Viewer.',
       path: 'http://localhost:8000/papaya/original',
       emoji: '🧠',
-      color: '#f48fb1',
-    },
-    {
-      title: '3D Diagnosis',
-      description: 'Experience immersive 3D visualization of diagnostic medical data for deeper analysis.',
-      path: '/visualization',
-      emoji: '🧬',
-      color: '#81d4fa',
+      color: 'green',
     },
     {
       title: 'Active/Inactive Drug Predictor',
@@ -81,7 +86,12 @@ const Dashboard = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Simulate loading delay for cards
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleCardClick = (path) => {
@@ -93,7 +103,7 @@ const Dashboard = () => {
         navigate(path);
       }
       setIsNavigating(false);
-    }, 300); // Match CSS transition duration
+    }, 300);
   };
 
   const scrollToTop = () => {
@@ -102,6 +112,7 @@ const Dashboard = () => {
 
   return (
     <div className="hub-wrapper">
+      <Navbar isAuthenticated={isAuthenticated} onLogout={onLogout} />
       <header className={`hub-header ${headerVisible ? 'visible' : ''}`}>
         <div className="logo-container">
           <span className="logo-icon">🩺</span>
@@ -111,35 +122,43 @@ const Dashboard = () => {
       </header>
 
       <main className="cards-container">
-        {sections.map((section, index) => (
-          <div
-            key={index}
-            className="feature-card"
-            onClick={() => handleCardClick(section.path)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleCardClick(section.path)}
-            aria-label={`Navigate to ${section.title}`}
-            style={{ '--card-index': index }}
-          >
-            <div className="feature-emoji" style={{ backgroundColor: section.color }}>
-              {section.emoji}
-            </div>
-            <h3>{section.title}</h3>
-            <p className="tooltip" data-tooltip={section.description}>
-              {section.description}
-            </p>
-            <button className="discover-button">Discover</button>
-            <div className="neural-network">
-              <div className="node node-1"></div>
-              <div className="node node-2"></div>
-              <div className="node node-3"></div>
-              <div className="connection conn-1"></div>
-              <div className="connection conn-2"></div>
-              <div className="scan-pulse"></div>
-            </div>
+        {isLoading ? (
+          <div className="loading-skeleton">
+            {[...Array(9)].map((_, index) => (
+              <div key={index} className="skeleton-card" />
+            ))}
           </div>
-        ))}
+        ) : (
+          sections.map((section, index) => (
+            <div
+              key={index}
+              className="feature-card"
+              onClick={() => handleCardClick(section.path)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && handleCardClick(section.path)}
+              aria-label={`Navigate to ${section.title}`}
+              style={{ '--card-index': index }}
+            >
+              <div className="feature-emoji" style={{ backgroundColor: section.color }}>
+                {section.emoji}
+              </div>
+              <h3>{section.title}</h3>
+              <p className="tooltip" data-tooltip={section.description}>
+                {section.description}
+              </p>
+              <button className="discover-button">Discover</button>
+              <div className="neural-network">
+                <div className="node node-1"></div>
+                <div className="node node-2"></div>
+                <div className="node node-3"></div>
+                <div className="connection conn-1"></div>
+                <div className="connection conn-2"></div>
+                <div className="scan-pulse"></div>
+              </div>
+            </div>
+          ))
+        )}
       </main>
 
       {showBackToTop && (
@@ -153,10 +172,23 @@ const Dashboard = () => {
       )}
 
       <footer className="hub-footer">
-        <p>© 2025 Gen-AI Med Diagnosis. Powered by xAI.</p>
+        <p>
+          © 2025 Gen-AI Med Diagnosis. Powered by{' '}
+          <a href="https://x.ai" target="_blank" rel="noopener noreferrer" className="footer-link">
+            xAI
+          </a>.
+        </p>
       </footer>
 
-      {isNavigating && <div className="navigation-overlay"></div>}
+      {isNavigating && (
+        <div className="navigation-overlay">
+          <div className="loader">
+            <div className="loader-dot"></div>
+            <div className="loader-dot"></div>
+            <div className="loader-dot"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

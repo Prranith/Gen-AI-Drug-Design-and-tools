@@ -1,27 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
-
-:root {
-  --primary-bg: #0f172a;
-  --secondary-bg: #1e293b;
-  --tertiary-bg: #334155;
-  --glass-bg: rgba(255, 255, 255, 0.2);
-  --border: rgba(255, 255, 255, 0.15);
-  --shadow: rgba(0, 0, 0, 0.2);
-  --text-white: #f8fafc;
-  --text-gray: #cbd5e1;
-  --text-accent: #60a5fa;
-  --gradient-overlay-start: #3b82f6;
-  --gradient-overlay-end: #8b5cf6;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-.hub-wrapper {
+.profile-wrapper {
   min-height: 100vh;
   background: linear-gradient(150deg, var(--primary-bg), var(--secondary-bg), var(--tertiary-bg));
   position: relative;
@@ -43,7 +20,7 @@
   opacity: 0.5;
 }
 
-.hub-header {
+.profile-header {
   text-align: center;
   margin-bottom: 2rem;
   background: var(--glass-bg);
@@ -58,12 +35,12 @@
   width: 100%;
 }
 
-.hub-header.visible {
+.profile-header.visible {
   transform: translateY(0);
   opacity: 1;
 }
 
-.hub-header:not(.visible) {
+.profile-header:not(.visible) {
   transform: translateY(-20px);
   opacity: 0;
 }
@@ -81,101 +58,52 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
-.hub-header h1 {
+.profile-header h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.2rem;
   font-weight: 700;
-  color: #1e90ff; /* Changed to blue for "Protein to SMILES" in header */
+  color: var(--text-white);
 }
 
-.hub-header p {
+.profile-header p {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   color: var(--text-gray);
   opacity: 0.9;
 }
 
-.tab-nav-container {
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 1rem;
-  z-index: 2;
-}
-
-.tab-nav {
+.profile-container {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.tab-nav .discover-button {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 9999px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-white);
-  background: linear-gradient(135deg, var(--gradient-overlay-start), var(--gradient-overlay-end));
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px var(--shadow);
-}
-
-.tab-nav .discover-button:hover:not(:disabled),
-.tab-nav .discover-button:focus:not(:disabled) {
-  background: linear-gradient(135deg, #4f46e5, #9333ea);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px var(--shadow);
-}
-
-.tab-nav .tab-active {
-  background: linear-gradient(135deg, #4f46e5, #9333ea);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
-}
-
-.tab-nav .discover-button:disabled {
-  background: linear-gradient(135deg, #6b7280, #4b5563);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.results-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
   max-width: 1200px;
   width: 100%;
   padding: 0 1rem;
   z-index: 2;
 }
 
-.feature-card {
+.profile-card {
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
   border-radius: 1.5rem;
-  padding: 2rem;
+  padding: 1.8rem;
   border: 2px solid var(--border);
   box-shadow: 0 4px 20px var(--shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
   animation: fadeInUp 1.5s ease-out forwards;
+  max-width: 400px;
   width: 100%;
-  max-width: 500px;
-  text-align: center;
 }
 
-.feature-card:hover,
-.feature-card:focus {
+.profile-card:hover,
+.profile-card:focus {
   transform: translateY(-8px);
   box-shadow: 0 8px 25px var(--shadow);
 }
 
-.feature-emoji {
+.profile-emoji {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -183,93 +111,37 @@
   height: 60px;
   border-radius: 50%;
   font-size: 2rem;
-  margin: 0 auto 1.2rem;
+  margin-bottom: 1.2rem;
   box-shadow: 0 4px 15px var(--shadow);
   transition: transform 0.3s ease;
 }
 
-.feature-card:hover .feature-emoji,
-.feature-card:focus .feature-emoji {
+.profile-card:hover .profile-emoji,
+.profile-card:focus .profile-emoji {
   transform: scale(1.1);
 }
 
-.feature-card h3 {
+.profile-card h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
   font-weight: 700;
-  color: #1e90ff; /* Changed to blue for "Protein to SMILES" in input panel */
-  margin-bottom: 0.8rem;
-}
-
-.feature-card p {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  color: #000000;
-  margin-bottom: 1.2rem;
-  line-height: 1.6;
-}
-
-.textarea {
-  width: 100%;
-  height: 200px;
-  padding: 0.8rem;
-  border: 2px solid var(--border);
-  border-radius: 0.75rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  background: rgba(255, 255, 255, 0.05);
-  color: #000000;
-  margin-bottom: 1rem;
-  resize: vertical;
-}
-
-.textarea::placeholder {
-  color: #000000;
-  opacity: 0.7;
-}
-
-.discover-button {
-  width: 100%;
-  max-width: 300px;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 9999px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
   color: var(--text-white);
-  background: linear-gradient(135deg, var(--gradient-overlay-start), var(--gradient-overlay-end));
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px var(--shadow);
+  margin-bottom: 0.6rem;
 }
 
-.discover-button:hover,
-.discover-button:focus {
-  background: linear-gradient(135deg, #4f46e5, #9333ea);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px var(--shadow);
-}
-
-.discover-button:disabled {
-  background: linear-gradient(135deg, #6b7280, #4b5563);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.error {
+.profile-card p {
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
-  color: #ef4444;
-  margin-top: 0.5rem;
+  color: var(--text-gray);
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
 }
 
-.error.tooltip {
+.profile-card .tooltip {
   position: relative;
 }
 
-.error.tooltip:hover::after {
+.profile-card .tooltip:hover::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 100%;
@@ -281,69 +153,34 @@
   border-radius: 8px;
   font-size: 0.8rem;
   white-space: normal;
-  max-width: 300px;
+  max-width: 200px;
   z-index: 10;
   opacity: 1;
   transition: opacity 0.2s ease;
 }
 
-.molecule-container {
-  margin: 1rem auto;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 5px var(--shadow);
-  width: 250px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.carousel-arrow {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
+.discover-button {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 9999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--text-white);
+  background: linear-gradient(135deg, var(--gradient-overlay-start), var(--gradient-overlay-end));
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--shadow);
 }
 
-.carousel-arrow:hover,
-.carousel-arrow:focus {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-}
-
-.carousel-indicator {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  color: #000000;
-}
-
-.retry-button {
-  margin-top: 1.5rem;
-}
-
-.no-results p {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  color: #000000;
-  margin-top: 1rem;
+.discover-button:hover,
+.discover-button:focus {
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--shadow);
 }
 
 .neural-network {
@@ -413,7 +250,7 @@
   background: linear-gradient(135deg, #4f46e5, #9333ea);
 }
 
-.hub-footer {
+.profile-footer {
   margin-top: 2rem;
   padding: 1rem;
   text-align: center;
@@ -423,7 +260,7 @@
   z-index: 2;
 }
 
-.hub-footer p {
+.profile-footer p {
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
   color: var(--text-gray);
@@ -440,61 +277,28 @@
   color: #c7d2fe;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-@keyframes fadeInUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@media (max-width: 1024px) {
-  .hub-header h1 {
-    font-size: 2rem;
-  }
-
-  .hub-header p {
-    font-size: 0.95rem;
-  }
-
-  .feature-card h3 {
-    font-size: 1.3rem;
-  }
-
-  .feature-card p {
-    font-size: 0.85rem;
-  }
-
-  .molecule-container {
-    width: 220px;
-    height: 180px;
-  }
-}
-
 @media (max-width: 768px) {
-  .hub-wrapper {
+  .profile-wrapper {
     padding: 4.5rem 0.8rem 1.5rem;
   }
 
-  .hub-header {
+  .profile-header {
     padding: 1.2rem 2rem;
   }
 
-  .hub-header h1 {
+  .profile-header h1 {
     font-size: 1.8rem;
   }
 
-  .hub-header p {
+  .profile-header p {
     font-size: 0.9rem;
   }
 
-  .feature-card {
+  .profile-card {
     padding: 1.5rem;
   }
 
-  .feature-emoji {
+  .profile-emoji {
     width: 50px;
     height: 50px;
     font-size: 1.8rem;
@@ -510,28 +314,18 @@
     height: 45px;
     font-size: 1.1rem;
   }
-
-  .textarea {
-    height: 150px;
-    font-size: 0.85rem;
-  }
-
-  .molecule-container {
-    width: 200px;
-    height: 160px;
-  }
 }
 
 @media (max-width: 480px) {
-  .hub-wrapper {
+  .profile-wrapper {
     padding: 4rem 0.5rem 1rem;
   }
 
-  .hub-header h1 {
+  .profile-header h1 {
     font-size: 1.6rem;
   }
 
-  .hub-header p {
+  .profile-header p {
     font-size: 0.85rem;
   }
 
@@ -539,15 +333,15 @@
     font-size: 2rem;
   }
 
-  .feature-card h3 {
+  .profile-card h3 {
     font-size: 1.2rem;
   }
 
-  .feature-card p {
+  .profile-card p {
     font-size: 0.8rem;
   }
 
-  .feature-emoji {
+  .profile-emoji {
     width: 45px;
     height: 45px;
     font-size: 1.6rem;
@@ -591,22 +385,7 @@
     font-size: 1rem;
   }
 
-  .hub-footer p {
-    font-size: 0.8rem;
-  }
-
-  .molecule-container {
-    width: 180px;
-    height: 140px;
-  }
-
-  .carousel-arrow {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-  }
-
-  .carousel-indicator {
+  .profile-footer p {
     font-size: 0.8rem;
   }
 }

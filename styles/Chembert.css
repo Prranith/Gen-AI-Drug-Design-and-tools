@@ -1,319 +1,331 @@
-/* PredictPage.css
-.container {
-    padding: 30px;
-    background-color: #121212;
-    color: #fff;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-  }
-  
-  .heading {
-    font-size: 24px;
-    color: #90caf9;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .centerBox {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-  
-  .contentBox {
-    width: 100%;
-    max-width: 600px;
-  }
-  
-  .label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 16px;
-  }
-  
-  .dropdown {
-    padding: 10px;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    background-color: #1e1e1e;
-    color: #fff;
-  }
-  
-  .infoBox {
-    background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #444;
-  }
-  
-  .infoTitle {
-    font-size: 18px;
-    color: #90caf9;
-    margin-bottom: 10px;
-  }
-  
-  .infoText {
-    font-size: 14px;
-    color: #ccc;
-  }
-  
-  .input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    background-color: #1e1e1e;
-    color: #fff;
-    margin-bottom: 10px;
-  }
-  
-  .button {
-    padding: 10px 20px;
-    background-color: #90caf9;
-    color: #000;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
-  
-  .error {
-    color: red;
-    margin-top: 10px;
-  }
-  
-  .resultBox {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #1a1a1a;
-    border-radius: 12px;
-    border: 1px solid #555;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  
-  .resultTitle {
-    font-size: 16px;
-    color: #90caf9;
-    margin-bottom: 10px;
-  }
-  
-  .resultItem {
-    font-size: 15px;
-    color: #bbdefb;
-    background-color: #263238;
-    padding: 8px 12px;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    list-style-type: none;
-    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
-    transition: background-color 0.3s, transform 0.2s;
-    cursor: pointer;
-  }
-  
-  /* Animation Keyframes */
-  /* @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  } */ 
-/* Container for all cards */
-/* Global container */
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Lora', serif;
 }
 
 .chembert-wrapper {
   min-height: 100vh;
-  background: #ffffff;
+  background: linear-gradient(150deg, var(--primary-bg), var(--secondary-bg), var(--tertiary-bg));
   display: flex;
-  color: #333;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
 }
 
 .disease-panel {
-  width: 20%; /* Increased width to fit content */
-  background: #f3e5f5;
-  padding: 30px;
-  border-right: 2px solid #d1c4e9;
-  animation: fadeIn 0.5s ease;
-  overflow-y: auto; /* Allow scrolling if content overflows */
+  width: 25%;
+  padding: 2rem;
+  position: relative;
+  overflow-y: auto;
+  animation: fadeInUp 1.5s ease-out forwards;
 }
 
 .disease-title {
+  font-family: 'Playfair Display', serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #7b1fa2;
-  margin-bottom: 15px;
+  color: var(--text-white);
+  margin-bottom: 1rem;
 }
 
 .disease-description {
-  margin-top: auto;
-  font-size: 1.1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
   line-height: 1.6;
-  color: #4a4a4a;
-  word-break: break-word; /* Ensure text wraps */
-  overflow-wrap: break-word; /* Support for older browsers */
+  color: var(--text-gray);
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .predictor-panel {
-  width: 60%; /* Adjusted to balance with disease panel */
-  padding: 40px;
+  width: 75%;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .predictor-title {
+  font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #f06292;
-  margin-bottom: 30px;
+  color: var(--text-white);
+  margin-bottom: 2rem;
   text-align: center;
-  animation: bounceIn 0.8s ease;
+  animation: fadeInUp 1.5s ease-out forwards;
+}
+
+.panel-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 2px solid var(--border);
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 1.5s ease-out forwards;
+}
+
+.panel-card:hover,
+.panel-card:focus {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px var(--shadow);
+}
+
+.feature-emoji {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 4px 15px var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.panel-card:hover .feature-emoji,
+.panel-card:focus .feature-emoji {
+  transform: scale(1.1);
 }
 
 .input-section {
   width: 100%;
   max-width: 500px;
-  margin-bottom: 40px; /* Increased spacing */
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Space between elements */
+  gap: 1rem;
 }
 
 .input-label {
-  font-size: 1.2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #7b1fa2;
+  color: var(--text-white);
 }
 
 .smiles-input {
   width: 100%;
-  padding: 12px;
-  border: 2px solid #ffccbc;
-  border-radius: 15px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s ease;
+  padding: 0.8rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #000000;
+  background: rgba(255, 255, 255, 0.15);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .smiles-input:focus {
-  border-color: #f06292;
+  border-color: var(--text-accent);
+  box-shadow: 0 0 8px var(--text-accent);
+  outline: none;
 }
 
 .smiles-input:disabled {
-  background: #f5f5f5;
+  background: rgba(255, 255, 255, 0.05);
   cursor: not-allowed;
 }
 
 .error-message {
-  color: #d32f2f;
+  color: #ff6f61;
+  font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
-  margin-top: 5px;
+  margin-top: 0.5rem;
+  text-align: center;
 }
 
 .predict-button {
-  padding: 12px 30px;
-  background: #f06292;
-  color: #ffffff;
+  padding: 0.9rem 2rem;
   border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
+  border-radius: 9999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--text-white);
+  background: linear-gradient(135deg, var(--gradient-overlay-start), var(--gradient-overlay-end));
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--shadow);
 }
 
-.predict-button:hover:not(:disabled) {
-  background: #d81b60;
-  transform: scale(1.05);
+.predict-button:hover:not(:disabled),
+.predict-button:focus:not(:disabled) {
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--shadow);
 }
 
 .predict-button:disabled {
-  background: #bdbdbd;
+  background: rgba(255, 255, 255, 0.2);
   cursor: not-allowed;
 }
 
 .prediction-section {
   width: 100%;
-  max-width: 500px;
-  margin-top: 20px;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.prediction-item .prediction-content {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.result-image-container {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  box-shadow: 0 2px 10px var(--shadow);
+  padding: 15px;
+}
+
+.structure-image {
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.prediction-item:hover .structure-image {
+  transform: scale(1.05);
+}
+
+.image-fallback {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-gray);
+  text-align: center;
+  padding: 0.5rem;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prediction-details {
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-gray);
+}
+
+.prediction-details p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.prediction-details strong {
+  color: var(--text-white);
+  font-weight: 600;
 }
 
 .prediction-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #7b1fa2;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.prediction-list {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-bottom: 1rem;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.prediction-item {
-  background: #ffccbc;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 1rem;
-  color: #333;
-  text-align: center;
-  transition: all 0.3s ease;
-  animation: fadeIn 0.5s ease;
-}
-
-.prediction-item:hover {
-  background: #ffab91;
-  transform: translateY(-3px);
+.prediction-title::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ff8a65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+  background-size: contain;
 }
 
 .no-predictions {
-  font-size: 1rem;
-  color: #7b1fa2;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-gray);
   text-align: center;
-  margin-top: 20px;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.neural-network {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  opacity: 0.3;
 }
 
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(1.1);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+.node {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--text-accent);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
 }
 
-@media (max-width: 768px) {
+.node-1 { top: 20%; left: 30%; }
+.node-2 { top: 50%; left: 70%; animation-delay: 0.3s; }
+.node-3 { top: 80%; left: 40%; animation-delay: 0.6s; }
+
+.connection {
+  position: absolute;
+  background: linear-gradient(90deg, var(--text-accent, 0.4), var(--text-accent));
+  height: 1.5px;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+.conn-1 { top: 35%; left: 35%; width: 50px; transform: rotate(45deg); }
+.conn-2 { top: 65%; left: 45%; width: 40px; transform: rotate(-30deg); animation-delay: 0.4s; }
+
+.scan-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, var(--text-accent, 0.3), transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 3.5s ease-in-out infinite;
+}
+
+@media (max-width: 1024px) {
   .chembert-wrapper {
     flex-direction: column;
   }
@@ -321,16 +333,155 @@
   .disease-panel {
     width: 100%;
     border-right: none;
-    border-bottom: 2px solid #d1c4e9;
-    max-height: 300px; /* Limit height on mobile */
+    border-bottom: 2px solid var(--border);
+    max-height: 300px;
   }
 
   .predictor-panel {
     width: 100%;
-    padding: 20px;
+    padding: 1.5rem;
   }
 
-  .input-section {
-    margin-bottom: 30px;
+  .prediction-section {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .prediction-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .structure-image {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chembert-wrapper {
+    padding: 1rem;
+  }
+
+  .disease-panel {
+    padding: 1.5rem;
+  }
+
+  .disease-title {
+    font-size: 1.8rem;
+  }
+
+  .disease-description {
+    font-size: 0.85rem;
+  }
+
+  .predictor-title {
+    font-size: 2rem;
+  }
+
+  .panel-card {
+    padding: 1.5rem;
+  }
+
+  .feature-emoji {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
+
+  .input-label {
+    font-size: 1rem;
+  }
+
+  .smiles-input {
+    font-size: 0.85rem;
+  }
+
+  .predict-button {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .prediction-title {
+    font-size: 1.3rem;
+  }
+
+  .structure-image {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .disease-title {
+    font-size: 1.6rem;
+  }
+
+  .disease-description {
+    font-size: 0.8rem;
+  }
+
+  .predictor-title {
+    font-size: 1.8rem;
+  }
+
+  .panel-card {
+    padding: 1rem;
+  }
+
+  .feature-emoji {
+    width: 45px;
+    height: 45px;
+    font-size: 1.6rem;
+  }
+
+  .input-label {
+    font-size: 0.9rem;
+  }
+
+  .smiles-input {
+    font-size: 0.8rem;
+  }
+
+  .predict-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .prediction-title {
+    font-size: 1.2rem;
+  }
+
+  .prediction-details p {
+    font-size: 0.85rem;
+  }
+
+  .structure-image {
+    max-width: 100px;
+  }
+
+  .neural-network {
+    width: 100px;
+    height: 100px;
+  }
+
+  .node {
+    width: 6px;
+    height: 6px;
+  }
+
+  .connection {
+    height: 1px;
+  }
+
+  .conn-1 {
+    width: 40px;
+  }
+
+  .conn-2 {
+    width: 30px;
+  }
+
+  .scan-pulse {
+    width: 80px;
+    height: 80px;
   }
 }

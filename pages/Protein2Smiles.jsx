@@ -1,101 +1,30 @@
-// import React, { useState } from "react";
-// import Navbar from "../components/Navbar";
-// import axios from "axios";
-// import RDKitMolecule from "./RDKitMolecule";
-// import "../styles/UseModel.css";
-
-// const Protein2Smiles = () => {
-//   const [inputData, setInputData] = useState("");
-//   const [result, setResult] = useState(null);
-//   const [error, setError] = useState(null);
-
-//   const handlePrediction = async () => {
-//     try {
-//       setError(null);
-//       const response = await axios.post("http://localhost:5000/api/protein2smiles", {
-//         state: inputData,
-//       });
-//       setResult(response.data);
-//     } catch (err) {
-//       console.error("Error fetching prediction:", err);
-//       setError("Failed to get prediction. Please try again.");
-//     }
-//   };
-
-//   return (
-//     <>
-      
-//       <div className="model-page-container">
-//         <div className="input-section">
-//           <h2>PROTEIN2SMILES</h2>
-//           <p>Enter PROTEIN sequence to let the model predict it's SMILES sequence .</p>
-//           <textarea
-//             className="textarea"
-//             value={inputData}
-//             onChange={(e) => setInputData(e.target.value)}
-//             placeholder="Enter PROTEIN (e.g., MM)"
-//           />
-//           <button className="button" onClick={handlePrediction}>
-//             Predict Smiles
-//           </button>
-//           {error && <div className="error">{error}</div>}
-//         </div>
-
-//         <div className="results-section">
-//           {result && result.top_results && Array.isArray(result.top_results) && (
-//             <>
-//               <h3>Top Results</h3>
-//               <div className="boxes-container">
-//                 {result.top_results.slice(0, 5).map((item, index) => (
-//                   <div key={index} className="box">
-//                     <div className="left-side">
-//                       <RDKitMolecule smiles={item.SMILES} width={200} height={200} />
-//                     </div>
-//                     <div className="right-side">
-//                       <p>
-//                         <strong>SMILE:</strong> {item.SMILES}
-//                       </p>
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             </>
-//           )}
-
-//           {result && result.top_results && !Array.isArray(result.top_results) && (
-//             <>
-//               <h3>Prediction Result</h3>
-//               <div className="box">
-//                 <div className="left-side">
-//                   <RDKitMolecule smiles={result.top_results.SMILES} width={200} height={200} />
-//                 </div>
-//                 <div className="right-side">
-//                   <p>
-//                     <strong>SMILE:</strong> {result.top_results.SMILES}
-//                   </p>
-//                 </div>
-//               </div>
-//             </>
-//           )}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Protein2Smiles;
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RDKitMolecule from './RDKitMolecule'; // Adjust path as needed
-import '../styles/Protein2Smiles.css'; // Adjust path as needed
+import Navbar from '../components/Navbar';
+import useParticleEffect from '../hooks/useParticleEffect';
+import '../styles/Protein2Smiles.css';
 
-const Protein2Smiles = () => {
+const Protein2Smiles = ({ isAuthenticated, onLogout }) => {
   const [activeTab, setActiveTab] = useState('input');
   const [inputData, setInputData] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const carouselRef = useRef(null);
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useParticleEffect('hub-wrapper');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHeaderVisible(window.scrollY > 100);
+      setShowBackToTop(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handlePrediction = async () => {
     if (!inputData.trim()) {
@@ -136,18 +65,17 @@ const Protein2Smiles = () => {
     }
   };
 
-  useEffect(() => {
-    if (carouselRef.current && resultsArray.length > 0) {
-      carouselRef.current.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-  }, [currentSlide, resultsArray]);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const renderPanel = () => {
     switch (activeTab) {
       case 'input':
         return (
-          <div className="input-panel">
-            <h2>Protein to SMILES</h2>
+          <div className="feature-card input-panel" style={{ '--card-index': 0 }}>
+            <div className="feature-emoji" style={{ backgroundColor: '#26a69a' }}>🧬</div>
+            <h3>Protein to SMILES</h3>
             <p>Enter a protein sequence to predict its SMILES representation.</p>
             <textarea
               className="textarea"
@@ -155,41 +83,82 @@ const Protein2Smiles = () => {
               onChange={(e) => setInputData(e.target.value)}
               placeholder="Enter protein (e.g., MM)"
             />
-            <button className="predict-button" onClick={handlePrediction}>
+            <button className="discover-button predict-button" onClick={handlePrediction}>
               Predict
             </button>
-            {error && <p className="error-message">{error}</p>}
+            {error && (
+              <div className="error tooltip" data-tooltip={error}>
+                {error}
+              </div>
+            )}
+            <div className="neural-network">
+              <div className="node node-1"></div>
+              <div className="node node-2"></div>
+              <div className="node node-3"></div>
+              <div className="connection conn-1"></div>
+              <div className="connection conn-2"></div>
+              <div className="scan-pulse"></div>
+            </div>
           </div>
         );
       case 'results':
         return (
-          <div className="results-panel">
-            <h2>Prediction Results</h2>
+          <div className="results-container">
             {resultsArray.length > 0 ? (
-              <div className="result-carousel">
-                <button className="carousel-arrow left" onClick={handlePrevSlide}>
-                  ❮
-                </button>
-                <div className="carousel-track" ref={carouselRef}>
-                  {resultsArray.map((item, index) => (
-                    <div key={index} className="result-slide">
-                      <div className="result-icon">🧪</div>
-                      <div className="molecule-container">
-                        <RDKitMolecule smiles={item.SMILES || ''} width={250} height={200} />
-                      </div>
-                      <p><strong>SMILES:</strong> {item.SMILES || 'N/A'}</p>
-                    </div>
-                  ))}
+              <div className="feature-card result-item" style={{ '--card-index': 0 }}>
+                <div className="feature-emoji" style={{ backgroundColor: '#66bb6a' }}>
+                  🧪
                 </div>
-                <button className="carousel-arrow right" onClick={handleNextSlide}>
-                  ❯
-                </button>
+                <h3>Prediction Result</h3>
+                <div className="molecule-container">
+                  <RDKitMolecule
+                    smiles={resultsArray[currentSlide].SMILES || ''}
+                    width={250}
+                    height={200}
+                  />
+                </div>
+                <p><strong>SMILES:</strong> {resultsArray[currentSlide].SMILES || 'N/A'}</p>
+                {resultsArray.length > 1 && (
+                  <div className="carousel-controls">
+                    <button
+                      className="carousel-arrow left"
+                      onClick={handlePrevSlide}
+                      aria-label="Previous result"
+                    >
+                      ❮
+                    </button>
+                    <span className="carousel-indicator">
+                      {currentSlide + 1} / {resultsArray.length}
+                    </span>
+                    <button
+                      className="carousel-arrow right"
+                      onClick={handleNextSlide}
+                      aria-label="Next result"
+                    >
+                      ❯
+                    </button>
+                  </div>
+                )}
+                <div className="neural-network">
+                  <div className="node node-1"></div>
+                  <div className="node node-2"></div>
+                  <div className="node node-3"></div>
+                  <div className="connection conn-1"></div>
+                  <div className="connection conn-2"></div>
+                  <div className="scan-pulse"></div>
+                </div>
               </div>
             ) : (
-              <p className="no-results">No results to display.</p>
+              <div className="feature-card no-results" style={{ '--card-index': 0 }}>
+                <p>No results to display.</p>
+              </div>
             )}
-            {error && <p className="error-message">{error}</p>}
-            <button className="retry-button" onClick={() => setActiveTab('input')}>
+            {error && (
+              <div className="error tooltip" data-tooltip={error}>
+                {error}
+              </div>
+            )}
+            <button className="discover-button retry-button" onClick={() => setActiveTab('input')}>
               Try Another Sequence
             </button>
           </div>
@@ -200,23 +169,50 @@ const Protein2Smiles = () => {
   };
 
   return (
-    <div className="convert-wrapper">
-      <div className="tab-nav">
+    <div className="hub-wrapper">
+      <Navbar isAuthenticated={isAuthenticated} onLogout={onLogout} />
+      <header className={`hub-header ${headerVisible ? 'visible' : ''}`}>
+        <div className="logo-container">
+          <span className="logo-icon">🧬</span>
+          <h1>Protein to SMILES</h1>
+        </div>
+        <p>Enter a protein sequence to predict its SMILES representation using AI.</p>
+      </header>
+      <main className="tab-nav-container">
+        <div className="tab-nav">
+          <button
+            className={`discover-button ${activeTab === 'input' ? 'tab-active' : ''}`}
+            onClick={() => setActiveTab('input')}
+          >
+            Input
+          </button>
+          <button
+            className={`discover-button ${activeTab === 'results' ? 'tab-active' : ''}`}
+            onClick={() => setActiveTab('results')}
+            disabled={!result}
+          >
+            Results
+          </button>
+        </div>
+        {renderPanel()}
+      </main>
+      {showBackToTop && (
         <button
-          className={activeTab === 'input' ? 'tab-active' : ''}
-          onClick={() => setActiveTab('input')}
+          className="back-to-top"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
         >
-          Input
+          ↑
         </button>
-        <button
-          className={activeTab === 'results' ? 'tab-active' : ''}
-          onClick={() => setActiveTab('results')}
-          disabled={!result}
-        >
-          Results
-        </button>
-      </div>
-      {renderPanel()}
+      )}
+      <footer className="hub-footer">
+        <p>
+          © 2025 Protein to SMILES. Powered by{' '}
+          <a href="https://x.ai" target="_blank" rel="noopener noreferrer" className="footer-link">
+            xAI
+          </a>.
+        </p>
+      </footer>
     </div>
   );
 };

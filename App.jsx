@@ -205,6 +205,7 @@ import Loading from './components/Loading';
 import ProteinStructure from './pages/ProteinStructure';
 import Visualization from './pages/Visualization';
 import Upload from './pages/Upload';
+import TumorAnalysisSelector from './pages/TumorAnalysisSelector';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -254,6 +255,7 @@ const App = () => {
                         <Route path="/protein2smiles" element={<Protein2Smiles />} />
                         <Route path="/reinforcement" element={<Reinforcement />} />
                         <Route path="/reinforcement2" element={<LogP />} />
+                        <Route path="/tumor-analysis" element={<TumorAnalysisSelector />} />
                         <Route path="/diagnosis" element={<Diagnosis />} />
                         <Route path="/docking" element={<DockingForm />} />
                         <Route path="/masking" element={<Chembert />} />
